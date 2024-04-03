@@ -1,0 +1,16 @@
+[
+  {
+    "name": "test-project1",
+    "images": [
+      "test-project1/Ball 3D Render.jpg"
+    ]
+  },
+  {
+    "name": "test-project2",
+    "images": [
+      "test-project2/Cube 3D Render (1).png",
+      "test-project2/Cube 3D Render.jpeg",
+      "test-project2/Cube 3D Render.png"
+    ]
+  }
+]
