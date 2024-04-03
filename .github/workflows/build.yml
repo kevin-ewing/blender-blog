@@ -28,7 +28,7 @@ jobs:
     - name: Upload Static Files as Artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: ./dist  # Adjust this to the directory where your build process outputs the static site files.
+        path: .  # Adjust this to the directory where your build process outputs the static site files.
 
   deploy:
     needs: build
