@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const resourcesDir = "./resources";
-const outputFilePath = "./projectList.json";
+const resourcesDir = "./public/resources";
+const outputFilePath = "./public/projectList.json";
 
 fs.readdir(resourcesDir, { withFileTypes: true }, (err, entries) => {
   if (err) {
