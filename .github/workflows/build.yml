@@ -6,6 +6,10 @@ on:
       - master  # Adjust this as necessary to your default branch
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write  # Grant permission to write the ID token
+
 jobs:
   build:
     runs-on: ubuntu-latest
