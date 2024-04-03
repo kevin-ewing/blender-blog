@@ -1,29 +1,41 @@
-name: Build and Deploy to GitHub Pages
+name: Build and Deploy Site with GitHub Actions
 
 on:
   push:
     branches:
-      - master  # Or your default branch
+      - master  # Adjust this as necessary to your default branch
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+    
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: '14' # Specify the node version your project requires
+        node-version: '14'  # Specify the Node.js version
 
-    - name: Install dependencies
+    - name: Install Dependencies
       run: npm install
 
-    - name: Run make
+    - name: Build Static Files
       run: make
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Upload Static Files as Artifact
+      uses: actions/upload-pages-artifact@v1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist # Make sure this matches the output directory of your build command in the Makefile
+        path: ./dist  # Adjust this to the directory where your build process outputs the static site files.
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Ensures deployment runs only on push to the default branch and not on pull requests.
+
+    steps:
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v1
