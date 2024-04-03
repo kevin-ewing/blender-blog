@@ -1,0 +1,30 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master  # Or your default branch, if it's named differently
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Use whatever version your script requires
+
+    - name: Install dependencies
+      run: npm install  # If you have a package.json file and need to install dependencies
+
+    - name: Run Makefile
+      run: make build
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      with:
+        branch: gh-pages  # The branch the action should deploy to.
+        folder: build  # The folder the action should deploy.
+        clean: true  # Automatically remove deleted files from the deployment
